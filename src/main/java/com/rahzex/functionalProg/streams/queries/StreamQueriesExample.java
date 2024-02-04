@@ -19,32 +19,33 @@ public class StreamQueriesExample {
 
         // How many male and female employees are there in the organization?
         Map<String, Long> noOfMaleAndFemaleEmployees = employees.stream()
-                .collect(Collectors.groupingBy(Employee::getGender, Collectors.counting()));
+                .collect(Collectors.groupingBy(Employee::gender, Collectors.counting()));
         System.out.println(noOfMaleAndFemaleEmployees);
 
         // What is the average age of male and female employees?
         Map<String, Double> avgAgeOfMaleAndFemaleEmployees = employees.stream()
-                .collect(Collectors.groupingBy(Employee::getGender, Collectors.averagingInt(Employee::getAge)));
+                .collect(Collectors.groupingBy(Employee::gender, Collectors.averagingInt(Employee::age)));
 
         // Get the details of highest paid employee in the organization?
-        employees.stream().max(Comparator.comparing(Employee::getSalary))
+        employees.stream().max(Comparator.comparing(Employee::salary))
                 .ifPresent(System.out::println);
 
         // Get the details of youngest male employee in the product development department?
         employees.stream()
-                .filter(employee -> "Product Development".equals(employee.getDepartment()) && "Male".equals(employee.getGender()))
-                .min(Comparator.comparingInt(Employee::getAge))
+                .filter(employee -> "Product Development".equals(employee.department()) && "Male".equals(employee.gender()))
+                .min(Comparator.comparingInt(Employee::age))
                 .ifPresent(System.out::println);
 
         // What is the average salary and total salary of the whole organization?
         DoubleSummaryStatistics statistics = employees.stream()
-                .collect(Collectors.summarizingDouble(Employee::getSalary));
+                .collect(Collectors.summarizingDouble(Employee::salary));
         System.out.println(statistics.getAverage());
         System.out.println(statistics.getSum());
 
         // Separate the employees who are younger or equal to 25 years from those employees who are older than 25 years.
         Map<Boolean, List<Employee>> partitionEmployeesByAge =
-                employees.stream().collect(Collectors.partitioningBy(e -> e.getAge() > 25));
+                employees.stream().collect(Collectors.partitioningBy(e -> e.age() > 25));
+
 
     }
 
