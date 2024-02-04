@@ -7,8 +7,8 @@ public class DeclarativeProg {
         List<String> names = Arrays.asList("Dory", "Gill", "Bruce", "Nemo", "Darla", "Marlin", "Nylon");
 
         //find a nemo ; declarative
-        names.stream().filter(name -> name.equals("Nemo")).forEach(res -> System.out.println(res));
-        names.stream().filter(name -> name.contains("i")).forEach(System.out::println);
+        names.stream().filter(name -> name.equals("Nemo")).forEach(System.out::println);
+        names.stream().filter(name -> name.contains("D")).forEach(System.out::println);
         names.stream().sorted(String::compareTo).forEach(System.out::println);
     }
 }

@@ -25,7 +25,7 @@ public class StreamsExample {
 
 
         Map<String,List<String>> studentMap = StudentDataBase.getAllStudents().stream(). //.parallelStream dont forger.
-                filter(gpaPredicate) // Stream<Student>
+                filter(gpaPredicate.and(gradePredicate)) // Stream<Student>
                 .collect(Collectors.toMap(Student::getName ,Student::getActivities ));
 
         System.out.println("studentMap  : " + studentMap);
@@ -37,6 +37,7 @@ public class StreamsExample {
                 .distinct() // removes duplicates
                 .collect(Collectors.toList()); //collects it to a list.
 
+        studentActivities.forEach(System.out::println);
         List<String> namesList = StudentDataBase.getAllStudents().
                 stream() // Stream<Student>
                 .peek((student -> {
@@ -47,7 +48,7 @@ public class StreamsExample {
                 .distinct() // removes duplicates
                 .collect(Collectors.toList()); //collects it to a list.
 
-        System.out.println("namesList  : " + namesList);
+        //System.out.println("namesList  : " + namesList);
 
 
     }
